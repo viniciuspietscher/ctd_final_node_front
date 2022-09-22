@@ -1,25 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import { useForm } from "@mantine/form"
+import { TextInput, Button, Group } from "@mantine/core"
+import { randomId } from "@mantine/hooks"
 
 function App() {
+  const form = useForm({
+    initialValues: {
+      name: "",
+      email: "",
+    },
+  })
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div style={{ maxWidth: 320, margin: "auto" }}>
+      <TextInput
+        label='Name'
+        placeholder='Name'
+        {...form.getInputProps("name")}
+      />
+      <TextInput
+        mt='md'
+        label='Email'
+        placeholder='Email'
+        {...form.getInputProps("email")}
+      />
+
+      <Group position='center' mt='xl'>
+        <Button
+          variant='outline'
+          onClick={() =>
+            form.setValues({
+              name: randomId(),
+              email: `${randomId()}@test.com`,
+            })
+          }
         >
-          Learn React
-        </a>
-      </header>
+          Set random values
+        </Button>
+      </Group>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
