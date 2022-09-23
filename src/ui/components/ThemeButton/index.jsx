@@ -1,4 +1,9 @@
-import { Group, Switch, useMantineColorScheme, useMantineTheme } from "@mantine/core"
+import {
+  Group,
+  Switch,
+  useMantineColorScheme,
+  useMantineTheme,
+} from "@mantine/core"
 import { IconSun, IconMoonStars } from "@tabler/icons"
 
 export function LightDarkToggle() {
