@@ -10,7 +10,7 @@ export function LightDarkToggle() {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme()
   const theme = useMantineTheme()
   return (
-    <Group position='center' my={30}>
+    <Group position='right' my={20} mr={10}>
       <Switch
         checked={colorScheme === "dark"}
         onChange={() => toggleColorScheme()}
