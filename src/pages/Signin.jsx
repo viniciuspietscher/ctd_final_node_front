@@ -12,7 +12,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { useForm } from "@mantine/form"
 import { IconAt, IconLock } from "@tabler/icons"
 import { useEffect } from "react"
-import axios from "axios"
+import axiosInstance from "../helpers/axios"
 
 export function Signin({ setSignedIn }) {
   const navigate = useNavigate()
@@ -24,8 +24,8 @@ export function Signin({ setSignedIn }) {
   })
 
   function handleSubmit({ email, password }) {
-    axios
-      .post(`${process.env.REACT_APP_BASEURL}/user/login`, {
+    axiosInstance
+      .post(`/user/login`, {
         email,
         password,
       })
@@ -37,8 +37,7 @@ export function Signin({ setSignedIn }) {
   }
 
   useEffect(() => {
-    const token = localStorage.getItem("token")
-    if (token) {
+    if (localStorage.token) {
       navigate("/home")
     }
   }, [])

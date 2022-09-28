@@ -5,8 +5,7 @@ export function Home() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const token = localStorage.getItem("token")
-    if (!token) {
+    if (!localStorage.token) {
       navigate("/")
     }
   }, [])

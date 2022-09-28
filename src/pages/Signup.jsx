@@ -10,7 +10,7 @@ import {
 } from "@mantine/core"
 import { useForm } from "@mantine/form"
 import { IconAt, IconLock, IconUser } from "@tabler/icons"
-import axios from "axios"
+import axiosInstance from "../helpers/axios"
 import { useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
 
@@ -25,15 +25,14 @@ export function Signup({ setSignedIn }) {
   })
 
   useEffect(() => {
-    const token = localStorage.getItem("token")
-    if (token) {
+    if (localStorage.token) {
       navigate("/home")
     }
   }, [])
 
   function handleSubmit({ name, email, password }) {
-    axios
-      .post(`${process.env.REACT_APP_BASEURL}/user/register`, {
+    axiosInstance
+      .post(`/user/register`, {
         name,
         email,
         password,

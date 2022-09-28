@@ -33,8 +33,7 @@ function App() {
   }
 
   useEffect(() => {
-    const token = localStorage.getItem("token")
-    if (token) {
+    if (localStorage.token) {
       setSignedIn(true)
     }
   }, [])
@@ -51,7 +50,7 @@ function App() {
         withGlobalStyles
         withNormalizeCSS
       >
-        <Group position='right' spacing='sm' mt={20} mr={10}>
+        <Group position='right' spacing='sm' mt={10} mr={10}>
           <LightDarkToggle />
           {signedIn ? <Button onClick={handleSignOut}>Sign out</Button> : ""}
         </Group>
