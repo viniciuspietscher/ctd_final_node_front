@@ -33,7 +33,7 @@ export function Signup({ setSignedIn }) {
 
   function handleSubmit({ name, email, password }) {
     axios
-      .post(`${process.env.URL}/api/v1/user/register`, {
+      .post(`${process.env.REACT_APP_BASEURL}/user/register`, {
         name,
         email,
         password,

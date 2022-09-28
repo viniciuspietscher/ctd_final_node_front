@@ -25,7 +25,7 @@ export function Signin({ setSignedIn }) {
 
   function handleSubmit({ email, password }) {
     axios
-      .post(`${process.env.URL}/api/v1/user/login`, {
+      .post(`${process.env.REACT_APP_BASEURL}/user/login`, {
         email,
         password,
       })
