@@ -1,7 +1,9 @@
 import { Routes, Route } from "react-router-dom"
 import { MantineProvider, ColorSchemeProvider } from "@mantine/core"
-import { Signin, Signup } from "./pages"
-import { LightDarkToggle } from "./ui/components/ThemeButton/index"
+import { Home } from "./pages/Home"
+import { Signin } from "./pages/Signin"
+import { Signup } from "./pages/Signup"
+import { LightDarkToggle } from "./ui/components/ThemeButton"
 import { useHotkeys, useLocalStorage } from "@mantine/hooks"
 
 function App() {
@@ -32,6 +34,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Signin />} />
           <Route path='/signup' element={<Signup />} />
+          <Route path='/home' element={<Home />} />
         </Routes>
       </MantineProvider>
     </ColorSchemeProvider>
