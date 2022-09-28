@@ -1,4 +1,5 @@
 import {
+  Anchor,
   Button,
   Container,
   Group,
@@ -8,12 +9,12 @@ import {
   TextInput,
 } from "@mantine/core"
 import { useForm } from "@mantine/form"
-import { IconAt, IconLock } from "@tabler/icons"
+import { IconAt, IconLock, IconUser } from "@tabler/icons"
 import axios from "axios"
 import { useEffect } from "react"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
-export function Signup() {
+export function Signup({ setSignedIn }) {
   const navigate = useNavigate()
   const form = useForm({
     initialValues: {
@@ -39,6 +40,7 @@ export function Signup() {
       })
       .then((response) => {
         localStorage.setItem("token", response.data.token)
+        setSignedIn(true)
         navigate("/home")
       })
   }
@@ -46,7 +48,13 @@ export function Signup() {
   return (
     <Paper>
       <Group position='center' mb={50}>
-        <Text>Sign up to start Pet sitting</Text>
+        <Text>
+          Sign up to start Pet sitting or{" "}
+          <Anchor component={Link} to='/'>
+            sign in
+          </Anchor>
+          .
+        </Text>
       </Group>
       <Container size='xs'>
         {/* <form onSubmit={form.onSubmit((values) => signUp(values))}> */}
@@ -58,6 +66,7 @@ export function Signup() {
             withAsterisk
             autoCorrect='off'
             mb={10}
+            icon={<IconUser size={14} />}
           />
           <TextInput
             {...form.getInputProps("email")}

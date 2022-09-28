@@ -4,6 +4,7 @@ import {
   Container,
   Group,
   Paper,
+  PasswordInput,
   Text,
   TextInput,
 } from "@mantine/core"
@@ -13,7 +14,7 @@ import { IconAt, IconLock } from "@tabler/icons"
 import { useEffect } from "react"
 import axios from "axios"
 
-export function Signin() {
+export function Signin({ setSignedIn }) {
   const navigate = useNavigate()
   const form = useForm({
     initialValues: {
@@ -30,6 +31,7 @@ export function Signin() {
       })
       .then((response) => {
         localStorage.setItem("token", response.data.token)
+        setSignedIn(true)
         navigate("/home")
       })
   }
@@ -63,11 +65,10 @@ export function Signin() {
             autoCorrect='off'
             icon={<IconAt size={14} />}
           />
-          <TextInput
+          <PasswordInput
             {...form.getInputProps("password")}
             placeholder='Your password'
             label='Password'
-            type='Password'
             withAsterisk
             icon={<IconLock size={14} />}
           />
