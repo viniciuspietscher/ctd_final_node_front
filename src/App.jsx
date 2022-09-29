@@ -4,6 +4,8 @@ import {
   ColorSchemeProvider,
   Group,
   Button,
+  Header,
+  AppShell,
 } from "@mantine/core"
 import { Home } from "./pages/Home"
 import { Signin } from "./pages/Signin"
@@ -38,32 +40,41 @@ function App() {
     }
   }, [])
   return (
-    <ColorSchemeProvider
-      colorScheme={colorScheme}
-      toggleColorScheme={toggleColorScheme}
-    >
-      <MantineProvider
-        theme={{
-          fontFamily: "Open Sans",
-          colorScheme,
-        }}
-        withGlobalStyles
-        withNormalizeCSS
+    <AppShell>
+      <ColorSchemeProvider
+        colorScheme={colorScheme}
+        toggleColorScheme={toggleColorScheme}
       >
-        <Group position='right' spacing='sm' mt={10} mr={10}>
-          <LightDarkToggle />
-          {signedIn ? <Button onClick={handleSignOut}>Sign out</Button> : ""}
-        </Group>
-        <Routes>
-          <Route path='/' element={<Signin setSignedIn={setSignedIn} />} />
-          <Route
-            path='/signup'
-            element={<Signup setSignedIn={setSignedIn} />}
-          />
-          <Route path='/home' element={<Home />} />
-        </Routes>
-      </MantineProvider>
-    </ColorSchemeProvider>
+        <MantineProvider
+          theme={{
+            fontFamily: "Open Sans",
+            colorScheme,
+          }}
+          withGlobalStyles
+          withNormalizeCSS
+        >
+          <Header height={60} p='sm'>
+            <Group position='right' spacing='sm'>
+              <LightDarkToggle />
+              {signedIn ? (
+                <Button onClick={handleSignOut}>Sign out</Button>
+              ) : (
+                ""
+              )}
+            </Group>
+          </Header>
+
+          <Routes>
+            <Route path='/' element={<Signin setSignedIn={setSignedIn} />} />
+            <Route
+              path='/signup'
+              element={<Signup setSignedIn={setSignedIn} />}
+            />
+            <Route path='/home' element={<Home />} />
+          </Routes>
+        </MantineProvider>
+      </ColorSchemeProvider>
+    </AppShell>
   )
 }
 

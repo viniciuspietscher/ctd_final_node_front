@@ -73,9 +73,7 @@ export function Signin({ setSignedIn }) {
           />
 
           <Group position='right' mt={30}>
-            <Button type='submit' size='lg'>
-              Sign in
-            </Button>
+            <Button type='submit'>Sign in</Button>
           </Group>
         </form>
       </Container>
