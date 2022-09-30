@@ -14,6 +14,7 @@ import { LightDarkToggle } from "./ui/components/ThemeButton"
 import { useHotkeys, useLocalStorage } from "@mantine/hooks"
 import { useState } from "react"
 import { useEffect } from "react"
+import { NewPetSitting } from "./pages/NewPetSitting"
 
 function App() {
   const navigate = useNavigate()
@@ -70,6 +71,7 @@ function App() {
               element={<Signup setSignedIn={setSignedIn} />}
             />
             <Route path='/home' element={<Home />} />
+            <Route path='/new' element={<NewPetSitting />} />
           </Routes>
         </MantineProvider>
       </ColorSchemeProvider>

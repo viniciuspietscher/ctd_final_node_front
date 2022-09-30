@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@mantine/core": "^5.4.0",
+    "@mantine/dates": "^5.4.2",
     "@mantine/form": "^5.4.0",
     "@mantine/hooks": "^5.4.0",
     "@tabler/icons": "^1.97.0",
@@ -12,6 +13,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
+    "dayjs": "^1.11.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.1",
