@@ -1,4 +1,5 @@
 import {
+  ActionIcon,
   Box,
   Button,
   Checkbox,
@@ -14,13 +15,14 @@ import {
 } from "@mantine/core"
 import { useForm } from "@mantine/form"
 import { DatePicker } from "@mantine/dates"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import {
   IconAt,
   IconCalendar,
   IconHome,
   IconPhone,
+  IconTrash,
   IconUser,
 } from "@tabler/icons"
 import axiosInstance from "../helpers/axios"
@@ -28,10 +30,7 @@ import { randomId } from "@mantine/hooks"
 
 export function NewPetSitting() {
   const navigate = useNavigate()
-  const [numPets, setNumPets] = useState(1)
   const [numVisits, setNumVisits] = useState(1)
-  // const handlers = useRef()
-  const child = <Skeleton height={250} radius='md' animate={false} />
   const form = useForm({
     initialValues: {
       name: "",
@@ -54,16 +53,68 @@ export function NewPetSitting() {
     },
   })
 
-  function handleNumPets(value) {
-    form.insertListItem("pets", {
-      key: randomId(),
-      name: "",
-      petType: "",
-      age: 1,
-      medicine: false,
-      notes: "",
-    })
-  }
+  const petFields = form.values.pets.map((item, index) => (
+    <div key={item.key}>
+      <Group>
+        <TextInput
+          placeholder='Pet Name'
+          label='Pet Name'
+          withAsterisk
+          size='md'
+          mb={10}
+          autoCapitalize='off'
+          autoCorrect='off'
+          sx={{ flex: 1 }}
+          {...form.getInputProps(`pets.${index}.name`)}
+        />
+        <ActionIcon
+          color='red'
+          onClick={() => form.removeListItem("pets", index)}
+        >
+          <IconTrash size={16} />
+        </ActionIcon>
+      </Group>
+      <Select
+        withAsterisk
+        size='md'
+        data={["Cat", "Dog"]}
+        placeholder='Pick one'
+        label='Pet type'
+        mb={10}
+        {...form.getInputProps(`pets.${index}.petType`)}
+      />
+      <Group spacing={5}>
+        <NumberInput
+          placeholder='Pet age'
+          label='Pet age'
+          size='md'
+          max={40}
+          min={1}
+          step={1}
+          styles={{ input: { width: 60 } }}
+          mb={20}
+          {...form.getInputProps(`pets.${index}.age`)}
+        />
+      </Group>
+      <Checkbox
+        label='Takes medicine?'
+        size='md'
+        mb={10}
+        {...form.getInputProps(`pets.${index}.medicine`, {
+          type: "checkbox",
+        })}
+      />
+      <Textarea
+        placeholder='Additional notes'
+        label='Additional notes'
+        size='md'
+        autosize
+        minRows={2}
+        {...form.getInputProps(`pets.${index}.notes`)}
+        mb={60}
+      />
+    </div>
+  ))
 
   function handleSubmit(values) {
     console.log(values)
@@ -101,6 +152,7 @@ export function NewPetSitting() {
                   {...form.getInputProps("name")}
                   placeholder='Customer Name'
                   label='Customer Name'
+                  size='md'
                   withAsterisk
                   mb={10}
                   autoCapitalize='off'
@@ -109,6 +161,7 @@ export function NewPetSitting() {
                 />
                 <TextInput
                   {...form.getInputProps("email")}
+                  size='md'
                   placeholder='Customer email'
                   label='Customer Email'
                   withAsterisk
@@ -119,6 +172,7 @@ export function NewPetSitting() {
                 />
                 <TextInput
                   {...form.getInputProps("phone")}
+                  size='md'
                   placeholder='Customer phone'
                   label='Phone'
                   withAsterisk
@@ -129,7 +183,8 @@ export function NewPetSitting() {
                 />
                 <TextInput
                   {...form.getInputProps("address")}
-                  placeholder='Customer adress'
+                  size='md'
+                  placeholder='Customer address'
                   label='Customer Address'
                   withAsterisk
                   mb={10}
@@ -139,6 +194,7 @@ export function NewPetSitting() {
                 />
                 <DatePicker
                   {...form.getInputProps("startdate")}
+                  size='md'
                   placeholder='Select date'
                   label='Start date'
                   withAsterisk
@@ -147,6 +203,7 @@ export function NewPetSitting() {
                 />
                 <DatePicker
                   {...form.getInputProps("enddate")}
+                  size='md'
                   placeholder='Select date'
                   label='End date'
                   withAsterisk
@@ -158,6 +215,7 @@ export function NewPetSitting() {
                   <Group spacing={5}>
                     <NumberInput
                       value={numVisits}
+                      size='md'
                       onChange={(val) => setNumVisits(val)}
                       max={10}
                       min={1}
@@ -166,69 +224,23 @@ export function NewPetSitting() {
                       mb={10}
                     />
                   </Group>
-                  <Text size='sm'>Number of Pets</Text>
-                  <Group spacing={5}>
-                    <NumberInput
-                      value={numPets}
-                      onChange={(val) => handleNumPets(val)}
-                      max={10}
-                      min={1}
-                      step={1}
-                      styles={{ input: { width: 60 } }}
-                      mb={10}
-                    />
-                  </Group>
                 </>
-                <>
-                  {form.values.pets.map((item, index) => (
-                    <div key={item.key}>
-                      <TextInput
-                        placeholder='Pet Name'
-                        label='Pet Name'
-                        withAsterisk
-                        mb={10}
-                        autoCapitalize='off'
-                        autoCorrect='off'
-                        {...form.getInputProps(`pets.${index}.name`)}
-                      />
-                      <Select
-                        withAsterisk
-                        data={["Cat", "Dog"]}
-                        placeholder='Pick one'
-                        label='Pet type'
-                        mb={10}
-                        {...form.getInputProps(`pets.${index}.petType`)}
-                      />
-                      <Group spacing={5}>
-                        <NumberInput
-                          placeholder='Pet age'
-                          label='Pet age'
-                          max={40}
-                          min={1}
-                          step={1}
-                          styles={{ input: { width: 60 } }}
-                          mb={20}
-                          {...form.getInputProps(`pets.${index}.age`)}
-                        />
-                      </Group>
-                      <Checkbox
-                        label='Takes medicine?'
-                        mb={10}
-                        {...form.getInputProps(`pets.${index}.medicine`, {
-                          type: "checkbox",
-                        })}
-                      />
-                      <Textarea
-                        placeholder='Additional notes'
-                        label='Additional notes'
-                        autosize
-                        minRows={2}
-                        {...form.getInputProps(`pets.${index}.notes`)}
-                      />
-                    </div>
-                  ))}
-                </>
-                <Group position='right' mt={30}>
+                {petFields}
+                <Group position='apart' mt={30}>
+                  <Button
+                    onClick={() =>
+                      form.insertListItem("pets", {
+                        key: randomId(),
+                        name: "",
+                        petType: "",
+                        age: 1,
+                        medicine: false,
+                        notes: "",
+                      })
+                    }
+                  >
+                    Add pet
+                  </Button>
                   <Button type='submit'>Add Pet Sitting Event</Button>
                 </Group>
               </form>
