@@ -8,7 +8,6 @@ import {
   Group,
   NumberInput,
   Select,
-  Skeleton,
   Text,
   Textarea,
   TextInput,
@@ -116,18 +115,31 @@ export function NewPetSitting() {
     </div>
   ))
 
-  function handleSubmit(values) {
-    console.log(values)
-    // axiosInstance
-    //   .post(`/user/login`, {
-    //     email,
-    //     password,
-    //   })
-    //   .then((response) => {
-    //     localStorage.setItem("token", response.data.token)
-    //     setSignedIn(true)
-    //     navigate("/home")
-    //   })
+  function handleSubmit({
+    name,
+    email,
+    phone,
+    address,
+    startdate,
+    enddate,
+    numvisitsperday,
+    pets,
+  }) {
+    axiosInstance
+      .post(`/petsitting/newPetSitting`, {
+        name,
+        email,
+        phone,
+        address,
+        startdate,
+        enddate,
+        numvisitsperday,
+        pets,
+      })
+      .then((response) => {
+        console.log(response)
+        navigate("/home")
+      })
   }
 
   useEffect(() => {
