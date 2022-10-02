@@ -1,13 +1,15 @@
 import {
-  ActionIcon,
   Box,
   Button,
+  Checkbox,
   Container,
   Grid,
   Group,
   NumberInput,
+  Select,
   Skeleton,
   Text,
+  Textarea,
   TextInput,
 } from "@mantine/core"
 import { useForm } from "@mantine/form"
@@ -27,8 +29,10 @@ export function NewPetSitting() {
   const navigate = useNavigate()
   const [numPets, setNumPets] = useState(1)
   const [numVisits, setNumVisits] = useState(1)
-  const handlers = useRef()
+  // const handlers = useRef()
   const child = <Skeleton height={250} radius='md' animate={false} />
+  const [pets, setPets] = useState([0])
+  const [inputs, setInputs] = useState([<input />])
   const form = useForm({
     initialValues: {
       name: "",
@@ -38,9 +42,15 @@ export function NewPetSitting() {
       startdate: Date.now(),
       enddate: Date.now(),
       numvisitsperday: 1,
-      pets: [],
+      pets: [{ name: "initial" }],
     },
   })
+
+  function handleNumPets(value) {
+    setNumPets(value)
+    // setPets(...pets, { name: "oi" })
+  }
+  // console.log(pets)
 
   function handleSubmit(values) {
     console.log(values)
@@ -61,6 +71,14 @@ export function NewPetSitting() {
       navigate("/")
     }
   }, [])
+
+  useEffect(() => {
+    // setInputs(Array.from({ length: numPets }).map((_) => <input />))
+    // setPets(Array.from({ length: numPets }).forEach((e) => console.log(e)))
+    // console.log(Array.from({ length: numPets }, (_, i) => i))
+    setPets(Array.from({ length: numPets }, (_, i) => i + 1))
+  }, [numPets])
+
   return (
     <>
       <Container mt={50}>
@@ -130,19 +148,6 @@ export function NewPetSitting() {
                   icon={<IconCalendar size={14} />}
                 />
                 <>
-                  <Text size='sm'>Number of Pets</Text>
-                  <Group spacing={5}>
-                    <NumberInput
-                      value={numPets}
-                      onChange={(val) => setNumPets(val)}
-                      handlersRef={handlers}
-                      max={10}
-                      min={1}
-                      step={1}
-                      styles={{ input: { width: 60 } }}
-                      mb={10}
-                    />
-                  </Group>
                   <Text size='sm'>Number of Visits per day</Text>
                   <Group spacing={5}>
                     <NumberInput
@@ -152,10 +157,68 @@ export function NewPetSitting() {
                       min={1}
                       step={1}
                       styles={{ input: { width: 60 } }}
+                      mb={10}
+                    />
+                  </Group>
+                  <Text size='sm'>Number of Pets</Text>
+                  <Group spacing={5}>
+                    <NumberInput
+                      value={numPets}
+                      // onChange={(val) => setNumPets(val)}
+                      onChange={(val) => handleNumPets(val)}
+                      // handlersRef={handlers}
+                      max={10}
+                      min={1}
+                      step={1}
+                      styles={{ input: { width: 60 } }}
+                      mb={10}
                     />
                   </Group>
                 </>
-
+                <>
+                  {pets.map((e) => (
+                    <div key={e}>
+                      <TextInput
+                        // {...form.getInputProps("name")}
+                        placeholder='Pet Name'
+                        label='Pet Name'
+                        withAsterisk
+                        mb={10}
+                        autoCapitalize='off'
+                        autoCorrect='off'
+                      />
+                      <Select
+                        withAsterisk
+                        data={["Cat", "Dog"]}
+                        placeholder='Pick one'
+                        label='Pet type'
+                        mb={10}
+                      />
+                      <Group spacing={5}>
+                        <NumberInput
+                          // value={numPets}
+                          // onChange={(val) => setNumPets(val)}
+                          // onChange={(val) => handleNumPets(val)}
+                          // handlersRef={handlers}
+                          placeholder='Pet age'
+                          label='Pet age'
+                          max={40}
+                          min={1}
+                          step={1}
+                          styles={{ input: { width: 60 } }}
+                          mb={20}
+                        />
+                      </Group>
+                      <Checkbox label='Takes medicine?' mb={10} />
+                      <Textarea
+                        placeholder='Additional notes'
+                        label='Additional notes'
+                        autosize
+                        minRows={2}
+                      />
+                    </div>
+                  ))}
+                </>
                 <Group position='right' mt={30}>
                   <Button type='submit'>Add Pet Sitting Event</Button>
                 </Group>
