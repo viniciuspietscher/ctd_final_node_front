@@ -24,6 +24,7 @@ import {
   IconUser,
 } from "@tabler/icons"
 import axiosInstance from "../helpers/axios"
+import { randomId } from "@mantine/hooks"
 
 export function NewPetSitting() {
   const navigate = useNavigate()
@@ -31,8 +32,6 @@ export function NewPetSitting() {
   const [numVisits, setNumVisits] = useState(1)
   // const handlers = useRef()
   const child = <Skeleton height={250} radius='md' animate={false} />
-  const [pets, setPets] = useState([0])
-  const [inputs, setInputs] = useState([<input />])
   const form = useForm({
     initialValues: {
       name: "",
@@ -42,15 +41,29 @@ export function NewPetSitting() {
       startdate: Date.now(),
       enddate: Date.now(),
       numvisitsperday: 1,
-      pets: [{ name: "initial" }],
+      pets: [
+        {
+          key: randomId(),
+          name: "",
+          petType: "",
+          age: 1,
+          medicine: false,
+          notes: "",
+        },
+      ],
     },
   })
 
   function handleNumPets(value) {
-    setNumPets(value)
-    // setPets(...pets, { name: "oi" })
+    form.insertListItem("pets", {
+      key: randomId(),
+      name: "",
+      petType: "",
+      age: 1,
+      medicine: false,
+      notes: "",
+    })
   }
-  // console.log(pets)
 
   function handleSubmit(values) {
     console.log(values)
@@ -71,13 +84,6 @@ export function NewPetSitting() {
       navigate("/")
     }
   }, [])
-
-  useEffect(() => {
-    // setInputs(Array.from({ length: numPets }).map((_) => <input />))
-    // setPets(Array.from({ length: numPets }).forEach((e) => console.log(e)))
-    // console.log(Array.from({ length: numPets }, (_, i) => i))
-    setPets(Array.from({ length: numPets }, (_, i) => i + 1))
-  }, [numPets])
 
   return (
     <>
@@ -164,9 +170,7 @@ export function NewPetSitting() {
                   <Group spacing={5}>
                     <NumberInput
                       value={numPets}
-                      // onChange={(val) => setNumPets(val)}
                       onChange={(val) => handleNumPets(val)}
-                      // handlersRef={handlers}
                       max={10}
                       min={1}
                       step={1}
@@ -176,16 +180,16 @@ export function NewPetSitting() {
                   </Group>
                 </>
                 <>
-                  {pets.map((e) => (
-                    <div key={e}>
+                  {form.values.pets.map((item, index) => (
+                    <div key={item.key}>
                       <TextInput
-                        // {...form.getInputProps("name")}
                         placeholder='Pet Name'
                         label='Pet Name'
                         withAsterisk
                         mb={10}
                         autoCapitalize='off'
                         autoCorrect='off'
+                        {...form.getInputProps(`pets.${index}.name`)}
                       />
                       <Select
                         withAsterisk
@@ -193,13 +197,10 @@ export function NewPetSitting() {
                         placeholder='Pick one'
                         label='Pet type'
                         mb={10}
+                        {...form.getInputProps(`pets.${index}.petType`)}
                       />
                       <Group spacing={5}>
                         <NumberInput
-                          // value={numPets}
-                          // onChange={(val) => setNumPets(val)}
-                          // onChange={(val) => handleNumPets(val)}
-                          // handlersRef={handlers}
                           placeholder='Pet age'
                           label='Pet age'
                           max={40}
@@ -207,14 +208,22 @@ export function NewPetSitting() {
                           step={1}
                           styles={{ input: { width: 60 } }}
                           mb={20}
+                          {...form.getInputProps(`pets.${index}.age`)}
                         />
                       </Group>
-                      <Checkbox label='Takes medicine?' mb={10} />
+                      <Checkbox
+                        label='Takes medicine?'
+                        mb={10}
+                        {...form.getInputProps(`pets.${index}.medicine`, {
+                          type: "checkbox",
+                        })}
+                      />
                       <Textarea
                         placeholder='Additional notes'
                         label='Additional notes'
                         autosize
                         minRows={2}
+                        {...form.getInputProps(`pets.${index}.notes`)}
                       />
                     </div>
                   ))}
