@@ -12,7 +12,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { useForm } from "@mantine/form"
 import { IconAt, IconLock } from "@tabler/icons"
 import { useEffect } from "react"
-import axiosInstance from "../helpers/axios"
+import { axiosInstance } from "../helpers/axios"
 
 export function Signin({ setSignedIn }) {
   const navigate = useNavigate()

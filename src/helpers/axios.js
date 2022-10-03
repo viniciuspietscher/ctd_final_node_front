@@ -2,15 +2,14 @@ import axios from "axios"
 
 const baseURL = process.env.REACT_APP_BASEURL
 
-let headers = {}
-
-if (localStorage.token) {
-  headers.authorization = `Bearer ${localStorage.token}`
-}
-
 const axiosInstance = axios.create({
   baseURL,
-  headers,
+  headers: {},
 })
 
-export default axiosInstance
+const axiosInstanceAuth = axios.create({
+  baseURL,
+  headers: { Authorization: `Bearer ${localStorage.token}` },
+})
+
+export { axiosInstance, axiosInstanceAuth }

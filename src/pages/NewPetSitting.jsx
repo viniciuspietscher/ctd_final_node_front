@@ -24,7 +24,7 @@ import {
   IconTrash,
   IconUser,
 } from "@tabler/icons"
-import axiosInstance from "../helpers/axios"
+import { axiosInstanceAuth } from "../helpers/axios"
 import { randomId } from "@mantine/hooks"
 
 export function NewPetSitting() {
@@ -125,7 +125,7 @@ export function NewPetSitting() {
     numvisitsperday,
     pets,
   }) {
-    axiosInstance
+    axiosInstanceAuth
       .post(`/petsitting/newPetSitting`, {
         name,
         email,
@@ -140,6 +140,7 @@ export function NewPetSitting() {
         console.log(response)
         navigate("/home")
       })
+      .catch((e) => console.log("error", e))
   }
 
   useEffect(() => {
@@ -226,6 +227,7 @@ export function NewPetSitting() {
                   <Text size='sm'>Number of Visits per day</Text>
                   <Group spacing={5}>
                     <NumberInput
+                      {...form.getInputProps("numvisitsperday")}
                       value={numVisits}
                       size='md'
                       onChange={(val) => setNumVisits(val)}

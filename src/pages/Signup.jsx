@@ -10,7 +10,7 @@ import {
 } from "@mantine/core"
 import { useForm } from "@mantine/form"
 import { IconAt, IconLock, IconUser } from "@tabler/icons"
-import axiosInstance from "../helpers/axios"
+import { axiosInstance } from "../helpers/axios"
 import { useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
 
@@ -56,7 +56,6 @@ export function Signup({ setSignedIn }) {
         </Text>
       </Group>
       <Container size='xs'>
-        {/* <form onSubmit={form.onSubmit((values) => signUp(values))}> */}
         <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
           <TextInput
             {...form.getInputProps("name")}
