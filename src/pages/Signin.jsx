@@ -58,6 +58,7 @@ export function Signin({ setSignedIn }) {
             {...form.getInputProps("email")}
             placeholder='Your email'
             label='Email'
+            size='md'
             withAsterisk
             mb={10}
             autoCapitalize='off'
@@ -68,6 +69,7 @@ export function Signin({ setSignedIn }) {
             {...form.getInputProps("password")}
             placeholder='Your password'
             label='Password'
+            size='md'
             withAsterisk
             icon={<IconLock size={14} />}
           />

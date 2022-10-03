@@ -61,6 +61,7 @@ export function Signup({ setSignedIn }) {
             {...form.getInputProps("name")}
             placeholder='Your name'
             label='Full name'
+            size='md'
             withAsterisk
             autoCorrect='off'
             mb={10}
@@ -70,6 +71,7 @@ export function Signup({ setSignedIn }) {
             {...form.getInputProps("email")}
             placeholder='Your email'
             label='Email'
+            size='md'
             withAsterisk
             mb={10}
             autoCapitalize='off'
@@ -80,6 +82,7 @@ export function Signup({ setSignedIn }) {
             {...form.getInputProps("password")}
             placeholder='Your password'
             label='Password'
+            size='md'
             withAsterisk
             icon={<IconLock size={14} />}
           />

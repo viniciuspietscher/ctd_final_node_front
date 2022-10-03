@@ -140,7 +140,7 @@ export function NewPetSitting() {
         { headers: { Authorization: `Bearer ${localStorage.token}` } }
       )
       .then((response) => {
-        console.log(response)
+        // console.log(response)
         navigate("/home")
       })
       .catch((e) => console.log("error", e))
@@ -154,6 +154,9 @@ export function NewPetSitting() {
 
   return (
     <>
+      <Group position='left'>
+        <Button onClick={() => navigate("/home")}>Cancel</Button>
+      </Group>
       <Container mt={50}>
         <Group position='center'>
           <h2>New Pet sitting form</h2>
@@ -255,7 +258,7 @@ export function NewPetSitting() {
                       })
                     }
                   >
-                    Add pet
+                    Add another pet
                   </Button>
                   <Button type='submit'>Add Pet Sitting Event</Button>
                 </Group>

@@ -8,7 +8,6 @@ export function Home() {
   const child = <Skeleton height={250} radius='md' animate={false} />
 
   useEffect(() => {
-    console.log(localStorage.token)
     if (!localStorage.token) {
       navigate("/")
     }
