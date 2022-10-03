@@ -6,9 +6,4 @@ const axiosInstance = axios.create({
   baseURL,
 })
 
-const axiosInstanceAuth = axios.create({
-  baseURL,
-  headers: { Authorization: `Bearer ${localStorage.token}` },
-})
-
-export { axiosInstance, axiosInstanceAuth }
+export { axiosInstance }

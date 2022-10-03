@@ -14,7 +14,7 @@ import {
 } from "@mantine/core"
 import { useForm } from "@mantine/form"
 import { DatePicker } from "@mantine/dates"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import {
   IconAt,
@@ -24,12 +24,11 @@ import {
   IconTrash,
   IconUser,
 } from "@tabler/icons"
-import { axiosInstanceAuth } from "../helpers/axios"
+import axios from "axios"
 import { randomId } from "@mantine/hooks"
 
 export function NewPetSitting() {
   const navigate = useNavigate()
-  const [numVisits, setNumVisits] = useState(1)
   const form = useForm({
     initialValues: {
       name: "",
@@ -90,7 +89,7 @@ export function NewPetSitting() {
           max={40}
           min={1}
           step={1}
-          styles={{ input: { width: 60 } }}
+          styles={{ input: { width: 80 } }}
           mb={20}
           {...form.getInputProps(`pets.${index}.age`)}
         />
@@ -125,17 +124,21 @@ export function NewPetSitting() {
     numvisitsperday,
     pets,
   }) {
-    axiosInstanceAuth
-      .post(`/petsitting/newPetSitting`, {
-        name,
-        email,
-        phone,
-        address,
-        startdate,
-        enddate,
-        numvisitsperday,
-        pets,
-      })
+    axios
+      .post(
+        `${process.env.REACT_APP_BASEURL}/petsitting/newPetSitting`,
+        {
+          name,
+          email,
+          phone,
+          address,
+          startdate,
+          enddate,
+          numvisitsperday,
+          pets,
+        },
+        { headers: { Authorization: `Bearer ${localStorage.token}` } }
+      )
       .then((response) => {
         console.log(response)
         navigate("/home")
@@ -224,18 +227,17 @@ export function NewPetSitting() {
                   icon={<IconCalendar size={14} />}
                 />
                 <>
-                  <Text size='sm'>Number of Visits per day</Text>
+                  <Text size='sm'>Number of visits per day</Text>
                   <Group spacing={5}>
                     <NumberInput
-                      {...form.getInputProps("numvisitsperday")}
-                      value={numVisits}
+                      placeholder='Number of visits per day'
                       size='md'
-                      onChange={(val) => setNumVisits(val)}
-                      max={10}
+                      max={40}
                       min={1}
                       step={1}
-                      styles={{ input: { width: 60 } }}
-                      mb={10}
+                      styles={{ input: { width: 80 } }}
+                      mb={20}
+                      {...form.getInputProps("numvisitsperday")}
                     />
                   </Group>
                 </>
