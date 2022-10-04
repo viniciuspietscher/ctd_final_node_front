@@ -8,9 +8,9 @@ import {
   Group,
   NumberInput,
   Select,
-  Text,
   Textarea,
   TextInput,
+  Tooltip,
 } from "@mantine/core"
 import { useForm } from "@mantine/form"
 import { DatePicker } from "@mantine/dates"
@@ -65,12 +65,14 @@ export function NewPetSitting() {
           sx={{ flex: 1 }}
           {...form.getInputProps(`pets.${index}.name`)}
         />
-        <ActionIcon
-          color='red'
-          onClick={() => form.removeListItem("pets", index)}
-        >
-          <IconTrash size={16} />
-        </ActionIcon>
+        <Tooltip label='Delete pet'>
+          <ActionIcon
+            color='red'
+            onClick={() => form.removeListItem("pets", index)}
+          >
+            <IconTrash size={24} />
+          </ActionIcon>
+        </Tooltip>
       </Group>
       <Select
         withAsterisk
@@ -109,7 +111,7 @@ export function NewPetSitting() {
         autosize
         minRows={2}
         {...form.getInputProps(`pets.${index}.notes`)}
-        mb={60}
+        mb={50}
       />
     </div>
   ))
@@ -154,9 +156,6 @@ export function NewPetSitting() {
 
   return (
     <>
-      <Group position='left'>
-        <Button onClick={() => navigate("/home")}>Cancel</Button>
-      </Group>
       <Container mt={50}>
         <Group position='center'>
           <h2>New Pet sitting form</h2>
@@ -213,6 +212,7 @@ export function NewPetSitting() {
                 />
                 <DatePicker
                   {...form.getInputProps("startdate")}
+                  firstDayOfWeek='sunday'
                   size='md'
                   placeholder='Select date'
                   label='Start date'
@@ -222,6 +222,7 @@ export function NewPetSitting() {
                 />
                 <DatePicker
                   {...form.getInputProps("enddate")}
+                  firstDayOfWeek='sunday'
                   size='md'
                   placeholder='Select date'
                   label='End date'
@@ -230,23 +231,24 @@ export function NewPetSitting() {
                   icon={<IconCalendar size={14} />}
                 />
                 <>
-                  <Text size='sm'>Number of visits per day</Text>
                   <Group spacing={5}>
                     <NumberInput
                       placeholder='Number of visits per day'
+                      label='Number of visits per day'
+                      withAsterisk
                       size='md'
                       max={40}
                       min={1}
                       step={1}
-                      styles={{ input: { width: 80 } }}
                       mb={20}
                       {...form.getInputProps("numvisitsperday")}
                     />
                   </Group>
                 </>
                 {petFields}
-                <Group position='apart' mt={30}>
+                <Group position='left'>
                   <Button
+                    color='teal'
                     onClick={() =>
                       form.insertListItem("pets", {
                         key: randomId(),
@@ -259,6 +261,11 @@ export function NewPetSitting() {
                     }
                   >
                     Add another pet
+                  </Button>
+                </Group>
+                <Group position='apart' mt={30}>
+                  <Button color='red' onClick={() => navigate("/home")}>
+                    Cancel
                   </Button>
                   <Button type='submit'>Add Pet Sitting Event</Button>
                 </Group>

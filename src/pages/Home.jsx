@@ -9,7 +9,7 @@ import {
   Text,
   ThemeIcon,
 } from "@mantine/core"
-import { IconWalk } from "@tabler/icons"
+import { IconAt, IconHome, IconPhone, IconWalk } from "@tabler/icons"
 import axios from "axios"
 import dayjs from "dayjs"
 import { useEffect, useState } from "react"
@@ -62,9 +62,6 @@ export function Home() {
     <>
       <Container mt={50}>
         <Group position='center'>
-          {/* <Button size='xl' onClick={() => setOpened(true)}>
-            New Pet Sitting event
-          </Button> */}
           <Button size='xl' onClick={() => navigate("/new")}>
             New Pet Sitting event
           </Button>
@@ -74,7 +71,7 @@ export function Home() {
         <Grid>
           {petSittingEvents.map((item) => (
             <Grid.Col key={item._id} xs={4}>
-              <Anchor component={Link} to={`/petSitting/${item._id}`}>
+              <Anchor>
                 <Paper
                   radius='md'
                   withBorder
@@ -96,18 +93,34 @@ export function Home() {
                   >
                     {item.name}
                   </Text>
+                  <Text mt='md' color='dimmed' align='center' size='md'>
+                    <IconHome size={14} />
+                    {item.address}
+                  </Text>
                   <Text color='dimmed' align='center' size='md'>
+                    <IconPhone size={14} /> {item.phone}
+                  </Text>
+                  <Text color='dimmed' align='center' size='md'>
+                    <IconAt size={14} /> {item.email}
+                  </Text>
+                  <Text color='dimmed' align='center' size='md'>
+                    <IconWalk size={14} />
                     {item.numvisitsperday} walks / day
                   </Text>
                   <Group position='center' mt='md'>
                     <Text size='md'>
-                      Duration:{" "}
                       {dayjs(item.enddate).diff(dayjs(item.startdate), "days")}{" "}
-                      days
+                      days - {dayjs(item.startdate).format("MMM DD")} /{" "}
+                      {dayjs(item.enddate).format("MMM DD")}
                     </Text>
                   </Group>
                 </Paper>
               </Anchor>
+              <Group position='center' mt='sm' mb='sm'>
+                <Button component={Link} to={`/walk/${item._id}`}>
+                  Start Walk
+                </Button>
+              </Group>
             </Grid.Col>
           ))}
         </Grid>

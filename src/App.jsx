@@ -15,7 +15,7 @@ import { useHotkeys, useLocalStorage } from "@mantine/hooks"
 import { useState } from "react"
 import { useEffect } from "react"
 import { NewPetSitting } from "./pages/NewPetSitting"
-import { PetSitting } from "./pages/PetSitting"
+import { Walk } from "./pages/Walk"
 
 function App() {
   const navigate = useNavigate()
@@ -49,7 +49,7 @@ function App() {
       >
         <MantineProvider
           theme={{
-            fontFamily: "Open Sans",
+            // fontFamily: "Open Sans",
             colorScheme,
           }}
           withGlobalStyles
@@ -73,7 +73,8 @@ function App() {
             />
             <Route path='/home' element={<Home />} />
             <Route path='/new' element={<NewPetSitting />} />
-            <Route path='/petSitting/:eventId' element={<PetSitting />} />
+            {/* <Route path='/petSitting/:eventId' element={<PetSitting />} /> */}
+            <Route path='/walk/:eventId' element={<Walk />} />
           </Routes>
         </MantineProvider>
       </ColorSchemeProvider>
