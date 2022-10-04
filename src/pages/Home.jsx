@@ -74,7 +74,7 @@ export function Home() {
         <Grid>
           {petSittingEvents.map((item) => (
             <Grid.Col key={item._id} xs={4}>
-              <Anchor component={Link} to='/home'>
+              <Anchor component={Link} to={`/petSitting/${item._id}`}>
                 <Paper
                   radius='md'
                   withBorder
@@ -101,12 +101,8 @@ export function Home() {
                   </Text>
                   <Group position='center' mt='md'>
                     <Text size='md'>
-                      {/* 3 /{" "} */}
                       Duration:{" "}
-                      {dayjs(item.enddate).diff(
-                        dayjs(item.startdate),
-                        "days"
-                      )}{" "}
+                      {dayjs(item.enddate).diff(dayjs(item.startdate), "days")}{" "}
                       days
                     </Text>
                   </Group>
