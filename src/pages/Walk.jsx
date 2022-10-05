@@ -10,10 +10,11 @@ import {
 } from "@mantine/core"
 import { useForm } from "@mantine/form"
 import axios from "axios"
-import { useState } from "react"
-import { useParams } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { useNavigate, useParams } from "react-router-dom"
 
 export function Walk() {
+  const navigate = useNavigate()
   const { eventId } = useParams()
   const [link, setLink] = useState("")
   const form = useForm({
@@ -36,6 +37,12 @@ export function Walk() {
     form.values.endtime = Date()
     console.log(form.values)
   }
+
+  useEffect(() => {
+    if (!localStorage.token) {
+      navigate("/")
+    }
+  }, [])
 
   return (
     <>
