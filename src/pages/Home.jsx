@@ -71,7 +71,7 @@ export function Home() {
         <Grid>
           {petSittingEvents.map((item) => (
             <Grid.Col key={item._id} xs={4}>
-              <Anchor>
+              <Anchor component={Link} to={`/view/${item._id}`}>
                 <Paper
                   radius='md'
                   withBorder

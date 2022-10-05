@@ -16,6 +16,7 @@ import { useState } from "react"
 import { useEffect } from "react"
 import { NewPetSitting } from "./pages/NewPetSitting"
 import { Walk } from "./pages/Walk"
+import { View } from "./pages/View"
 
 function App() {
   const navigate = useNavigate()
@@ -73,8 +74,8 @@ function App() {
             />
             <Route path='/home' element={<Home />} />
             <Route path='/new' element={<NewPetSitting />} />
-            {/* <Route path='/petSitting/:eventId' element={<PetSitting />} /> */}
             <Route path='/walk/:eventId' element={<Walk />} />
+            <Route path='/view/:eventId' element={<View />} />
           </Routes>
         </MantineProvider>
       </ColorSchemeProvider>
