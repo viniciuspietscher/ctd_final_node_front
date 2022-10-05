@@ -18,7 +18,7 @@ export function Walk() {
   const [link, setLink] = useState("")
   const form = useForm({
     initialValues: {
-      petSittingEvent: eventId,
+      petSittingId: eventId,
       date: Date(),
       starttime: Date(),
       endtime: "",

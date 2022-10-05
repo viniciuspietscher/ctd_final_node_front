@@ -62,7 +62,7 @@ export function Home() {
     <>
       <Container mt={50}>
         <Group position='center'>
-          <Button size='xl' onClick={() => navigate("/new")}>
+          <Button size='xl' component={Link} to={`/new`}>
             New Pet Sitting event
           </Button>
         </Group>
