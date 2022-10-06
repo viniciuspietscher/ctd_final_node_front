@@ -9,6 +9,7 @@ import {
   Badge,
   Paper,
   Container,
+  Title,
 } from "@mantine/core"
 import { IconWalk } from "@tabler/icons"
 import dayjs from "dayjs"
@@ -98,6 +99,14 @@ export function GetWalk() {
               <Badge size='md'>Medicine</Badge>
               <Text size='md'>
                 {petWalk.medicine} {petWalk.medicine ? "Yes" : "No"}
+              </Text>
+            </Group>
+            <Group position='center' mt={40}>
+              <Title order={4}>Walk Notes</Title>
+            </Group>
+            <Group position='center' mt='md'>
+              <Text size='lg' lineClamp={8}>
+                {petWalk.walknotes}
               </Text>
             </Group>
           </Container>
