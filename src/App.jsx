@@ -17,6 +17,7 @@ import { useEffect } from "react"
 import { NewPetSitting } from "./pages/NewPetSitting"
 import { Walk } from "./pages/Walk"
 import { View } from "./pages/View"
+import { GetWalk } from "./pages/GetWalk"
 
 function App() {
   const navigate = useNavigate()
@@ -76,6 +77,7 @@ function App() {
             <Route path='/new' element={<NewPetSitting />} />
             <Route path='/walk/:eventId' element={<Walk />} />
             <Route path='/view/:eventId' element={<View />} />
+            <Route path='/getwalk/:uuid' element={<GetWalk />} />
           </Routes>
         </MantineProvider>
       </ColorSchemeProvider>

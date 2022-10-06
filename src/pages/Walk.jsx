@@ -1,4 +1,5 @@
 import {
+  Anchor,
   Box,
   Button,
   Checkbox,
@@ -11,12 +12,12 @@ import {
 import { useForm } from "@mantine/form"
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 
 export function Walk() {
   const navigate = useNavigate()
   const { eventId } = useParams()
-  const [link, setLink] = useState("")
+  const [uuid, setUuid] = useState("")
   const form = useForm({
     initialValues: {
       petSittingId: eventId,
@@ -35,7 +36,16 @@ export function Walk() {
 
   const handleSubmit = () => {
     form.values.endtime = Date()
-    console.log(form.values)
+    axios
+      .post(
+        "http://localhost:5000/api/v1/petsitting/addPetWalk",
+        {
+          ...form.values,
+        },
+        { headers: { Authorization: `Bearer ${localStorage.token}` } }
+      )
+      .then((response) => setUuid(response.data.uuid))
+      .catch((error) => console.log(error))
   }
 
   useEffect(() => {
@@ -119,6 +129,17 @@ export function Walk() {
                   </Button>
                 </Group>
               </form>
+              {uuid ? (
+                <Anchor
+                  component={Link}
+                  to={`/getwalk/${uuid}`}
+                  target='_blank'
+                >
+                  View Walk
+                </Anchor>
+              ) : (
+                ""
+              )}
             </Box>
           </Grid.Col>
         </Grid>
