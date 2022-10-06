@@ -1,5 +1,4 @@
 import {
-  Anchor,
   Box,
   Button,
   Checkbox,
@@ -131,17 +130,24 @@ export function Walk() {
                   </Button>
                 </Group>
               </form>
-              {uuid ? (
-                <Anchor
-                  component={Link}
-                  to={`/getwalk/${uuid}`}
-                  target='_blank'
-                >
-                  View Walk
-                </Anchor>
-              ) : (
-                ""
-              )}
+
+              <Group position='center' mt={100}>
+                <Button size='lg' component={Link} to={`/home`}>
+                  Back
+                </Button>
+                {uuid ? (
+                  <Button
+                    size='lg'
+                    component={Link}
+                    to={`/getwalk/${uuid}`}
+                    target='_blank'
+                  >
+                    View Walk
+                  </Button>
+                ) : (
+                  ""
+                )}
+              </Group>
             </Box>
           </Grid.Col>
         </Grid>
