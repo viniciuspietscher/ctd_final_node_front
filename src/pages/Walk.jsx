@@ -38,13 +38,15 @@ export function Walk() {
     form.values.endtime = Date()
     axios
       .post(
-        "http://localhost:5000/api/v1/petsitting/addPetWalk",
+        `${process.env.REACT_APP_BASEURL}/petsitting/addPetWalk`,
         {
           ...form.values,
         },
         { headers: { Authorization: `Bearer ${localStorage.token}` } }
       )
-      .then((response) => setUuid(response.data.uuid))
+      .then((response) => {
+        setUuid(response.data.uuid)
+      })
       .catch((error) => console.log(error))
   }
 
