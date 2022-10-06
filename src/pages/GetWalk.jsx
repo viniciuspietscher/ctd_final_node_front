@@ -95,18 +95,22 @@ export function GetWalk() {
                 {petWalk.water} {petWalk.water ? "Yes" : "No"}
               </Text>
             </Group>
-            <Group position='apart' mt='md'>
-              <Badge size='md'>Medicine</Badge>
-              <Text size='md'>
-                {petWalk.medicine} {petWalk.medicine ? "Yes" : "No"}
-              </Text>
-            </Group>
+            {petWalk.medicine ? (
+              <Group position='apart' mt='md'>
+                <Badge size='md'>Medicine</Badge>
+                <Text size='md'>
+                  {petWalk.medicine} {petWalk.medicine ? "Yes" : "No"}
+                </Text>
+              </Group>
+            ) : (
+              ""
+            )}
             <Group position='center' mt={40}>
               <Title order={4}>Walk Notes</Title>
             </Group>
             <Group position='center' mt='md'>
               <Text size='lg' lineClamp={8}>
-                {petWalk.walknotes}
+                {petWalk.walknotes ? petWalk.walknotes : "No notes added"}
               </Text>
             </Group>
           </Container>
