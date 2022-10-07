@@ -71,51 +71,51 @@ export function Home() {
         <Grid>
           {petSittingEvents.map((item) => (
             <Grid.Col key={item._id} xs={4}>
-              <Anchor component={Link} to={`/view/${item._id}`}>
-                <Paper
-                  radius='md'
-                  withBorder
-                  className={classes.card}
-                  mt={ICON_SIZE / 3}
+              {/* <Anchor component={Link} to={`/view/${item._id}`}> */}
+              <Paper
+                radius='md'
+                withBorder
+                className={classes.card}
+                mt={ICON_SIZE / 3}
+              >
+                <ThemeIcon
+                  className={classes.icon}
+                  size={ICON_SIZE}
+                  radius={ICON_SIZE}
                 >
-                  <ThemeIcon
-                    className={classes.icon}
-                    size={ICON_SIZE}
-                    radius={ICON_SIZE}
-                  >
-                    <IconWalk size={34} stroke={1.5} />
-                  </ThemeIcon>
-                  <Text
-                    align='center'
-                    weight={700}
-                    size='md'
-                    className={classes.title}
-                  >
-                    {item.name}
+                  <IconWalk size={34} stroke={1.5} />
+                </ThemeIcon>
+                <Text
+                  align='center'
+                  weight={700}
+                  size='md'
+                  className={classes.title}
+                >
+                  {item.name}
+                </Text>
+                <Text mt='md' color='dimmed' align='center' size='md'>
+                  <IconHome size={14} />
+                  {item.address}
+                </Text>
+                <Text color='dimmed' align='center' size='md'>
+                  <IconPhone size={14} /> {item.phone}
+                </Text>
+                <Text color='dimmed' align='center' size='md'>
+                  <IconAt size={14} /> {item.email}
+                </Text>
+                <Text color='dimmed' align='center' size='md'>
+                  <IconWalk size={14} />
+                  {item.numvisitsperday} walks / day
+                </Text>
+                <Group position='center' mt='md'>
+                  <Text size='md'>
+                    {dayjs(item.enddate).diff(dayjs(item.startdate), "days")}{" "}
+                    days - {dayjs(item.startdate).format("MMM DD")} /{" "}
+                    {dayjs(item.enddate).format("MMM DD")}
                   </Text>
-                  <Text mt='md' color='dimmed' align='center' size='md'>
-                    <IconHome size={14} />
-                    {item.address}
-                  </Text>
-                  <Text color='dimmed' align='center' size='md'>
-                    <IconPhone size={14} /> {item.phone}
-                  </Text>
-                  <Text color='dimmed' align='center' size='md'>
-                    <IconAt size={14} /> {item.email}
-                  </Text>
-                  <Text color='dimmed' align='center' size='md'>
-                    <IconWalk size={14} />
-                    {item.numvisitsperday} walks / day
-                  </Text>
-                  <Group position='center' mt='md'>
-                    <Text size='md'>
-                      {dayjs(item.enddate).diff(dayjs(item.startdate), "days")}{" "}
-                      days - {dayjs(item.startdate).format("MMM DD")} /{" "}
-                      {dayjs(item.enddate).format("MMM DD")}
-                    </Text>
-                  </Group>
-                </Paper>
-              </Anchor>
+                </Group>
+              </Paper>
+              {/* </Anchor> */}
               <Group position='center' mt='sm' mb='sm'>
                 <Button component={Link} to={`/walk/${item._id}`}>
                   Start Walk
